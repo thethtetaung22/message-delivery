@@ -4,6 +4,8 @@ import { GatewayService } from './gateway.service';
 import { ConfigModule } from '@nestjs/config';
 import { RmqModule } from '@app/common';
 import { MESSAGE_SERVICE } from '@app/common';
+import { GatewayGateway } from './gateway.gateway';
+// import { GatewayGateway } from './gateway.gateway';
 
 @Module({
     imports: [
@@ -18,6 +20,9 @@ import { MESSAGE_SERVICE } from '@app/common';
         RmqModule.register({ name: MESSAGE_SERVICE }),
     ],
     controllers: [GatewayController],
-    providers: [GatewayService],
+    providers: [
+        GatewayService,
+        GatewayGateway
+    ],
 })
 export class GatewayModule { }

@@ -10,11 +10,13 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
+
   message: 
     build:
       context: .
       dockerfile: ./apps/message/Dockerfile
       target: development
+    command: npm run start:dev message
     depends_on:
       - rabbitmq
     env_file:
@@ -22,7 +24,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run start:dev message
   gateway: 
     build:
       context: .
