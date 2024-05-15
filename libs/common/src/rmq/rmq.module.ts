@@ -3,7 +3,6 @@ import { RmqService } from './rmq.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 
-
 interface RmqModuleOptions {
     name: string;
 }
@@ -25,6 +24,8 @@ export class RmqModule {
                             options: {
                                 urls: [configService.get<string>('RABBIT_MQ_URI')],
                                 queue: configService.get<string>(`RABBIT_MQ_${name}_QUEUE`),
+                                noAck: false,
+                                persistent: true,
                             },
                         }),
                         inject: [ConfigService],

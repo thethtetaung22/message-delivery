@@ -1,6 +1,6 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxy, RmqContext, RmqOptions, Transport } from '@nestjs/microservices';
+import {  RmqContext, RmqOptions, Transport } from '@nestjs/microservices';
 
 @Injectable()
 export class RmqService {
@@ -8,7 +8,9 @@ export class RmqService {
     constructor(private readonly configService: ConfigService) { }
 
     getOptions(queue: string, noAck = false): RmqOptions {
-        return {
+        this.logger.debug(this.configService.get<string>('RABBIT_MQ_URI'))
+        this.logger.debug(this.configService.get<string>('RABBIT_MQ_MESSAGE_QUEUE'))
+        const options: RmqOptions = {
             transport: Transport.RMQ,
             options: {
                 urls: [this.configService.get<string>('RABBIT_MQ_URI')],
@@ -17,6 +19,8 @@ export class RmqService {
                 persistent: true,
             },
         };
+        this.logger.debug(options)
+        return options;
     }
 
     ack(context: RmqContext) {
