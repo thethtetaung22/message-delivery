@@ -1,3 +1,8 @@
+resource "aws_key_pair" "my_key_pair" {
+  key_name   = "my_new_key"
+  public_key = file("~/.ssh/my_new_key.pub")
+}
+
 resource "aws_security_group" "chat" {
   name_prefix = "chat"
 
@@ -51,7 +56,7 @@ resource "aws_instance" "chat" {
   tags = {
     Name = "test"
   }
-  key_name = "thethtetaung"
+  key_name = aws_key_pair.my_key_pair.key_name
   vpc_security_group_ids = [
     aws_security_group.chat.id,
   ]

@@ -41,11 +41,36 @@ $ yarn run start:prod message
 
 ## Terraform
 
-1. Update Configs in terraform-chat-service/provider.tf
-2. Run
+1. Create config file named "message-config" and add following
+
+```bash
+[default]
+region = ap-southeast-1
+output = json
+
+```
+
+2. Create credential file named "message-credential" and add following
+
+```bash
+[default]
+aws_access_key_id=REPLACE_WITH_YOUR_KEY
+aws_secret_access_key=REPLACE_WITH_YOUR_KEY
+
+```
+
+Update Config file directory in terraform-chat-service/provider.tf
+
+3. Create ssh key
+
+```bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/my_new_key1
+```
+
+4. Run commands
 
 ```bash
 terraform init
-terraform validate
+terraform plan
 terraform apply
 ```
