@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-$ yarn
+yarn
 ```
 
 # Prerequirements
@@ -39,15 +39,13 @@ $ yarn run start:prod gateway
 $ yarn run start:prod message
 ```
 
-## Test
+## Terraform
+
+1. Update Configs in terraform-chat-service/provider.tf
+2. Run
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+terraform init
+terraform validate
+terraform apply
 ```

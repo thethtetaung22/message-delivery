@@ -2,33 +2,29 @@ version: '3.8'
 
 services:
   message: 
-    build:
-      context: .
-      dockerfile: ./apps/message/Dockerfile
-      target: development
+    # build:
+    #   context: .
+    #   dockerfile: ./apps/message/Dockerfile
+    #   target: development
+    image: thethtet/message-message:latest
     command: npm run start:dev message
     depends_on:
       - rabbitmq
       - mongodb
     env_file:
       - ./apps/message/.env
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
   gateway: 
-    build:
-      context: .
-      dockerfile: ./apps/gateway/Dockerfile
-      target: development
+    # build:
+    #   context: .
+    #   dockerfile: ./apps/gateway/Dockerfile
+    #   target: development
+    image: thethtet/message-gateway:latest
     command: npm run start:dev gateway
     depends_on:
       - message
       - rabbitmq
     env_file:
       - ./apps/gateway/.env
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - '3000:3000'
   rabbitmq:
@@ -48,4 +44,3 @@ services:
       - dbdata6:/data/db
 volumes:
   dbdata6:
-  

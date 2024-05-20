@@ -11,8 +11,6 @@ export class MessageController {
 
     @EventPattern({ cmd: 'new-message' })
     async sendNewMessage(@Payload() data: CreateMesssgeRequest, @Ctx() context: RmqContext) {
-        console.log('Data:', data);
         return await this.messageService.sendNewMessage(data, context);
     }
-
 }
